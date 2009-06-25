@@ -22,15 +22,13 @@ I'd like to know so I can add them back in. Thanks!
 ## Credit
 
 This Rails Plugin was inspired by Cal Henderson's article 
-"Serving JavaScript Fast" on Vitamin:
-http://www.thinkvitamin.com/features/webapps/serving-javascript-fast
+"[Serving JavaScript Fast](http://www.thinkvitamin.com/features/webapps/serving-javascript-fast)" on Vitamin:
 
-It also uses the Ruby JavaScript Minifier created by 
+
+It also uses the Ruby [JavaScript Minifier](http://www.crockford.com/javascript/jsmin.html) created by 
 Douglas Crockford.
-http://www.crockford.com/javascript/jsmin.html
 
-The YUI Javascript compressor is also included.
-http://developer.yahoo.com/yui/compressor/
+The [YUI Javascript compressor](http://developer.yahoo.com/yui/compressor/) is also included.
 
 ## Key Features
 
@@ -57,7 +55,7 @@ November '08:
 * No more mucking with internal Rails functions, which means:
   * Return to use of query-string timestamps. Greatly simplifies things.
   * Multiple asset-hosts supported
-  * Filenames with "."'s in them, such as "jquery-x.x.x" are supported.
+  * Filenames with `.`'s in them, such as `jquery-x.x.x` are supported.
 * Now compatible with any revision control system since it no longer uses revision numbers.
 * Packages generated on demand in production mode. Running create_all rake task no longer necessary.
 
@@ -65,16 +63,17 @@ November '08:
 
 1.  Download and install the plugin:
 
-    ./script/plugin install git://github.com/sbecker/asset_packager.git
+    `./script/plugin install git://github.com/aemkei/asset_packager.git`
 
-2.  Run the rake task "asset:packager:create_yml" to generate the 
-    /config/asset_packages.yml file the first time. You will need to reorder 
+2.  Run the rake task `asset:packager:create_yml` to generate the 
+    `/config/asset_packages.yml` file the first time. You will need to reorder 
     files under 'base' so dependencies are loaded in correct order. Feel free 
     to rename or create new file packages.
 
-IMPORTANT: JavaScript files can break once compressed if each statement doesn't end with a semi-colon.
-The minifier puts multiple statements on one line, so if the semi-colon is missing, the statement may no 
-longer makes sense and cause a syntax error.
+    IMPORTANT: JavaScript files can break once compressed if each statement 
+    doesn't end with a semi-colon. The minifier puts multiple statements on 
+    one line, so if the semi-colon is missing, the statement may no longer 
+    makes sense and cause a syntax error.
 
 ## Examples of config/asset_packages.yml
 
@@ -113,7 +112,7 @@ Multiple packages:
       - foo
       - bar
 
-3.  Run the rake task "asset:packager:build_all" to generate the compressed, 
+3.  Run the rake task `asset:packager:build_all` to generate the compressed, 
     merged versions for each package. Whenever you rearrange the yaml file, 
     you'll need to run this task again. 
 
@@ -131,11 +130,11 @@ Multiple packages:
 
 5.  Potential warning: css compressor function currently removes CSS comments. 
     This might blow away some CSS hackery. To disable comment removal, 
-    comment out /lib/synthesis/asset_package.rb line 176.
+    comment out `/lib/synthesis/asset_package.rb` line 176.
 
 ## JavaScript Examples
 
-Example call (based on above /config/asset_packages.yml):
+Example call (based on above `/config/asset_packages.yml`):
 
     <%= javascript_include_merged :base %>
 
@@ -168,7 +167,7 @@ In production this generates:
 
 ## Different CSS Media
 
-All options for stylesheet_link_tag still work, so if you want to specify a different media type:
+All options for `stylesheet_link_tag` still work, so if you want to specify a different media type:
  
     <%= stylesheet_link_merged :secondary, 'media' => 'print' %>
 
@@ -182,7 +181,7 @@ All options for stylesheet_link_tag still work, so if you want to specify a diff
 
 This plugin has a full suite of tests. But since they
 depend on rails, it has to be run in the context of a
-rails app, in the vendor/plugins directory. Observe:
+rails app, in the `vendor/plugins directory`. Observe:
 
     > rails newtestapp
     > cd newtestapp
@@ -190,7 +189,7 @@ rails app, in the vendor/plugins directory. Observe:
     > rake test:plugins PLUGIN=asset_packager # all tests pass
 
 ## License
-Copyright (c) 2006-2008 Scott Becker - http://synthesis.sbecker.net
+Copyright (c) 2006-2008 Scott Becker - [http://synthesis.sbecker.net](http://synthesis.sbecker.net)
 Contact via Github for change requests, etc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
