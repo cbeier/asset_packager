@@ -22,13 +22,15 @@ I'd like to know so I can add them back in. Thanks!
 ## Credit
 
 This Rails Plugin was inspired by Cal Henderson's article 
-"[Serving JavaScript Fast](http://www.thinkvitamin.com/features/webapps/serving-javascript-fast)" on Vitamin:
+[Serving JavaScript Fast](http://www.thinkvitamin.com/features/webapps/serving-javascript-fast) 
+on Vitamin.
 
 
-It also uses the Ruby [JavaScript Minifier](http://www.crockford.com/javascript/jsmin.html) created by 
-Douglas Crockford.
+It also uses the Ruby [JavaScript Minifier](http://www.crockford.com/javascript/jsmin.html) 
+created by Douglas Crockford.
 
-The [YUI Javascript compressor](http://developer.yahoo.com/yui/compressor/) is also included.
+The [YUI Javascript compressor](http://developer.yahoo.com/yui/compressor/) 
+is also included.
 
 ## Key Features
 
@@ -44,6 +46,7 @@ The [YUI Javascript compressor](http://developer.yahoo.com/yui/compressor/) is a
 * Rake Task for auto-generating the YAML file from your existing JavaScript files.
 
 ## Updates
+
 February '09:
 
 * Fixed bug with multiline comments in css files
@@ -77,8 +80,8 @@ November '08:
 
 ## Examples of config/asset_packages.yml
 
-Example from a fresh rails app after running the rake task. (Stylesheets is blank because a 
-default rails app has no stylesheets yet.):
+Example from a fresh rails app after running the rake task. (Stylesheets is 
+blank because a default rails app has no stylesheets yet.):
 
     --- 
     javascripts: 
@@ -167,7 +170,8 @@ In production this generates:
 
 ## Different CSS Media
 
-All options for `stylesheet_link_tag` still work, so if you want to specify a different media type:
+All options for `stylesheet_link_tag` still work, so if you want to specify a 
+different media type:
  
     <%= stylesheet_link_merged :secondary, 'media' => 'print' %>
 
@@ -183,17 +187,32 @@ This plugin has a full suite of tests. But since they
 depend on rails, it has to be run in the context of a
 rails app, in the `vendor/plugins directory`. Observe:
 
-    > rails newtestapp
-    > cd newtestapp
-    > ./script/plugin install ./script/plugin install git://github.com/sbecker/asset_packager.git
-    > rake test:plugins PLUGIN=asset_packager # all tests pass
+    rails newtestapp
+    cd newtestapp
+    ./script/plugin install ./script/plugin install git://github.com/sbecker/asset_packager.git
+    rake test:plugins PLUGIN=asset_packager # all tests pass
 
 ## License
+
 Copyright (c) 2006-2008 Scott Becker - [http://synthesis.sbecker.net](http://synthesis.sbecker.net)
-Contact via Github for change requests, etc.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Contact via [Github](http://github.com/sbecker/asset_packager/tree) 
+for change requests, etc.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+Permission is hereby granted, free of charge, to any person obtaining a copy 
+of this software and associated documentation files (the "Software"), to deal 
+in the Software without restriction, including without limitation the rights 
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+copies of the Software, and to permit persons to whom the Software is 
+furnished to do so, subject to the following conditions:
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+The above copyright notice and this permission notice shall be included in all 
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
+SOFTWARE.
