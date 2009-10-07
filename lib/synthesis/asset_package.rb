@@ -156,6 +156,7 @@ module Synthesis
         if File.exists?(@full_path)
           log "Latest version already exists: #{@full_path}"
         else
+          Dir.mkdir(File.dirname(@full_path)) unless File.directory?(File.dirname(@full_path))
           File.open(@full_path, "w") {|f| f.write(compressed_file) }
           log "Created #{@full_path}"
         end
