@@ -65,7 +65,6 @@ module Synthesis
       end
 
       def build_all
-        @@asset_host = Rails.configuration.action_controller.asset_host
         @@asset_packages_yml.keys.reject{|key| key == 'config'}.each do |asset_type|
           @@asset_packages_yml[asset_type].each { |p| self.new(asset_type, p, config_for_type(asset_type)).build }
         end
@@ -120,6 +119,7 @@ module Synthesis
       @cache_dir = config['cache_dir'] || ''
       @file_name = File.join(@cache_dir, "#{@target}_packaged.#{@extension}")
       @full_path = File.join(@asset_path, @file_name)
+      @@asset_host = Rails.configuration.action_controller.asset_host
     end
   
     def package_exists?
@@ -190,7 +190,7 @@ module Synthesis
               when /^(http|https)\:\/\//
                 absolute_path
               else
-                if !@@asset_host.nil? && @@asset_host.class == String
+                if @@asset_host.class == String
                   host = (@@asset_host =~ /%d/) ? @@asset_host % (absolute_path.hash % 4) : @@asset_host
                   host = host[0..-2] if host =~ /\/$/
                 else
