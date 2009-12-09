@@ -190,7 +190,7 @@ module Synthesis
               when /^(http|https)\:\/\//
                 absolute_path
               else
-                if @@asset_host.class == String
+                if !@@asset_host.nil? && @@asset_host.class == String
                   host = (@@asset_host =~ /%d/) ? @@asset_host % (absolute_path.hash % 4) : @@asset_host
                   host = host[0..-2] if host =~ /\/$/
                 else
