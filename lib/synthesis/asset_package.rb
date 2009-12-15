@@ -152,19 +152,25 @@ module Synthesis
       end
 
       def recurse_css_file(source)
+        dirname = File.dirname(source)
         recursed_file = ""
+        assetPath = Pathname.new(@asset_path)
         File.open(source, "r") do |f|
           until f.eof
             line = f.gets.chomp
             if m = line.match(/@import (?:url\()?["'](.+)["']\)?/)
-              subfile = File.join(File.dirname(source), m[1])
+              subfile = File.join(dirname, m[1])
               if File.exists?(subfile)
                 recursed_file += recurse_css_file(subfile) + "\n"
               else
                 warn %Q[Included file '#{subfile}' does not exist!]
               end
             else
-              recursed_file += line + "\n"
+              line.gsub!(/url\(["']?([^\)]+?)["']?\)/) do |m|
+                relativeFile = Pathname.new(File.join(dirname, $1)).relative_path_from(assetPath)
+                %Q[url('#{relativeFile}')]
+              end
+              recursed_file += line + "\n" 
             end
           end
         end
