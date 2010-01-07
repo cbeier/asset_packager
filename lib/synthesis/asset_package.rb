@@ -298,6 +298,11 @@ module Synthesis
       def compress_css(source)
         yui_path = "#{RAILS_ROOT}/vendor/plugins/asset_packager/lib"
         result = ""
+
+        # remove the charset from each fild and write it to the top of the compressed file
+        source.gsub!(/@charset "(.+)";/, '')
+        source = "@charset \"#{$1}\";" << source unless $1.blank?
+
         begin
           # attempt to use YUI compressor
           IO.popen "java -jar #{yui_path}/yuicompressor-2.4.2.jar --type css 2>/dev/null", "r+" do |f|
