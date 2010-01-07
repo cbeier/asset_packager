@@ -246,7 +246,7 @@ module Synthesis
               end
             else
               line.gsub!(/url\(["']?([^\)]+?)["']?\)/) do |m|
-                relativeFile = Pathname.new(File.join(dirname, $1)).relative_path_from(assetPath)
+                relativeFile = Pathname.new(File.join(dirname, '..', $1)).relative_path_from(assetPath)
                 %Q[url('#{relativeFile}')]
               end
               recursed_file += line + "\n" 
