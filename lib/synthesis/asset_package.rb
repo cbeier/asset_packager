@@ -219,13 +219,43 @@ module Synthesis
       def merged_file
         merged_file = ""
         @sources.each {|s| 
-          File.open(full_asset_path(s), "r") { |f| 
-            merged_file += replace_asset_urls(full_asset_path(s), f.read) + "\n" 
-          }
+          if @asset_type == "stylesheets"
+            merged_file += recurse_css_file("#{@asset_path}/#{s}.#{@extension}")
+          else
+            File.open(full_asset_path(s), "r") { |f| 
+              merged_file += replace_asset_urls(full_asset_path(s), f.read) + "\n"
+            }
+          end
         }
         merged_file
       end
-    
+
+      def recurse_css_file(source)
+        dirname = File.dirname(source)
+        recursed_file = ""
+        assetPath = Pathname.new(@asset_path)
+        File.open(source, "r") do |f|
+          until f.eof
+            line = f.gets.chomp
+            if m = line.match(/@import (?:url\()?["'](.+)["']\)?/)
+              subfile = File.join(dirname, m[1])
+              if File.exists?(subfile)
+                recursed_file += recurse_css_file(subfile) + "\n"
+              else
+                warn %Q[Included file '#{subfile}' does not exist!]
+              end
+            else
+              line.gsub!(/url\(["']?([^\)]+?)["']?\)/) do |m|
+                relativeFile = Pathname.new(File.join(dirname, $1)).relative_path_from(assetPath)
+                %Q[url('#{relativeFile}')]
+              end
+              recursed_file += line + "\n" 
+            end
+          end
+        end
+        recursed_file
+      end
+
       def compressed_file
         case @asset_type
           when "javascripts" then compress_js(merged_file)
