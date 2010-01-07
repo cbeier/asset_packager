@@ -1,13 +1,20 @@
+require 'erb'
+
 module Synthesis
   class AssetPackage
+    class << self
+      include ::JavascriptStylesheetDependencies
+    end
 
     # class variables
-    @@asset_packages_yml = $asset_packages_yml || 
-      (File.exists?("#{RAILS_ROOT}/config/asset_packages.yml") ? YAML.load_file("#{RAILS_ROOT}/config/asset_packages.yml") : nil)
-  
+    @@asset_packages_yml = $asset_packages_yml ||
+      (File.exists?("#{RAILS_ROOT}/config/asset_packages.yml") ?
+       YAML::load(ERB.new(IO.read(File.join(RAILS_ROOT, 'config', 'asset_packages.yml'))).result(binding)) : nil)
+
+
     # singleton methods
     class << self
-      
+
       def merge_environments=(environments)
         @@merge_environments = environments
       end
