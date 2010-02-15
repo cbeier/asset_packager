@@ -243,6 +243,10 @@ module Synthesis
                 warn %Q[Included file '#{subfile}' does not exist!]
               end
             else
+              line.gsub!(/url\(["']?([^\)]+?)["']?\)/) do |m|
+                relativeFile = Pathname.new(File.join(dirname, $1)).relative_path_from(assetPath)
+                %Q[url('#{relativeFile}')]
+              end
               recursed_file += line + "\n"
             end
           end
